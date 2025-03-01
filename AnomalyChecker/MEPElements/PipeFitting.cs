@@ -28,6 +28,8 @@ namespace AnomalyChecker
 
         public string AnomalyType { get; set; }
 
+        public string Type { get; set; }
+
 
 
         public bool IsAPotentialAnomaly = false;
@@ -46,7 +48,7 @@ namespace AnomalyChecker
 
         public PipeFitting(FamilyInstance pipeFittingFamInst) 
         {
-
+            this.Type = "Raccord de canalisation";
             ElementID = pipeFittingFamInst.Id.Value;
 
 

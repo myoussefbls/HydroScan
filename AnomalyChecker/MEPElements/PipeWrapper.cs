@@ -12,6 +12,8 @@ namespace AnomalyChecker
     public class PipeWrapper : IPipingElementBase
     {
         public string AnomalyType { get; set; }
+
+        public string Type { get; set; }
         public long ElementID { get; set; }
 
         private Pipe _relatedPipe;
@@ -26,6 +28,8 @@ namespace AnomalyChecker
 
         public PipeWrapper(Pipe relatedPipe) 
         {
+            this.Type = "Canalisation";
+
             Autodesk.Revit.DB.Document pipeDocument = relatedPipe.Document;
             _relatedPipe = relatedPipe;
 

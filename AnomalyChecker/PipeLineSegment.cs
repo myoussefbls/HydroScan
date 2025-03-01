@@ -48,7 +48,7 @@ namespace AnomalyChecker
 
                     if (this._relatedMaterial.Name != firstConnectedMaterial.Name && this._relatedMaterial.Name == secondConnectedMaterial.Name) this.AnomalyType = "Anomalie potentielle" ;
                     if (this._relatedMaterial.Name == firstConnectedMaterial.Name && this._relatedMaterial.Name != secondConnectedMaterial.Name) this.AnomalyType = "Anomalie potentielle";
-                    if (this._relatedMaterial.Name != firstConnectedMaterial.Name && this._relatedMaterial.Name != secondConnectedMaterial.Name) this.AnomalyType = "Anomalie Certaine";
+                    if (this._relatedMaterial.Name != firstConnectedMaterial.Name && this._relatedMaterial.Name != secondConnectedMaterial.Name) this.AnomalyType = "Anomalie certaine";
                 }
 
                 if (connectedElements.Count == 1) 
@@ -67,9 +67,9 @@ namespace AnomalyChecker
                 IPipingElementBase firstLimit = _Limits[0];
                 IPipingElementBase secondLimit = _Limits[1];
 
-                if (firstLimit.ReturnConnectedElements().Count == 1 && secondLimit.ReturnConnectedElements().Count == 1) this.AnomalyType = "Anomalie Certaine";
+                if (firstLimit.ReturnConnectedElements().Count == 1 && secondLimit.ReturnConnectedElements().Count == 1) this.AnomalyType = "Anomalie certaine";
 
-                if (firstLimit.ReturnConnectedElements().Count > 1 && secondLimit.ReturnConnectedElements().Count > 1) this.AnomalyType = "Anomalie Certaine";
+                if (firstLimit.ReturnConnectedElements().Count > 1 && secondLimit.ReturnConnectedElements().Count > 1) this.AnomalyType = "Anomalie certaine";
 
                 if (firstLimit.ReturnConnectedElements().Count > 1 && secondLimit.ReturnConnectedElements().Count == 1) this.AnomalyType = "Anomalie potentielle";
 

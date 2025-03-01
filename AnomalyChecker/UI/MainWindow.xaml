@@ -8,42 +8,64 @@
         
         Title="MainWindow" 
         ResizeMode="NoResize"
-        Height="350" 
-        Width="600">
+        Height="500" 
+        Width="700">
+
 
     <Canvas>
-        <ComboBox Name="SystemTypes"  
-                  Height="22" 
-                  Canvas.Left="70" 
-                  Canvas.Top="63" 
-                  Width="462" 
-                  HorizontalAlignment="Left" 
-                  VerticalAlignment="Center" 
-                  ItemsSource="{Binding PipingSystemTypes}" 
-                  DisplayMemberPath="Name" 
-                  SelectedItem="{Binding SelectedPipingSystemType, Mode=TwoWay}"/>
+        <ComboBox Name="SystemTypes"
+          Height="22"
+          Canvas.Left="41"
+          Canvas.Top="213"
+          Width="618"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Top"
+          ItemsSource="{Binding PipingSystemTypes}"
+          DisplayMemberPath="Name"
+          SelectedItem="{Binding SelectedPipingSystemType, Mode=TwoWay}"
+          BorderBrush="White"
+          Background="White"
+          Foreground="Black"
+          IsEditable="True"/>
 
-        <ScrollViewer x:Name="mainScrollViewer" 
+
+        <ScrollViewer x:Name="mainScrollViewer3" 
                       VerticalScrollBarVisibility="Auto" 
                       Background="White" 
                       HorizontalAlignment="Center" 
-                      Canvas.Left="33" 
-                      Canvas.Top="135" 
-                      VerticalAlignment="Top">
+                      Canvas.Left="042" 
+                      Canvas.Top="306" 
+                      VerticalAlignment="Top" Width="234">
             <DataGrid ItemsSource="{Binding PreSelectedSystemNames}" 
                       AutoGenerateColumns="False" 
                       Background="White"
                       GridLinesVisibility="None"
-                      RowBackground="White"
-                      AlternatingRowBackground="White"
+                      AlternationCount="2"
                       BorderThickness="0"
                       HeadersVisibility="Column"
                       Height="145" 
-                      Width="250"
+                      Width="234"
                       SelectionMode="Single"
                       SelectedItem="{Binding SelectedSystem, Mode=TwoWay}">
+
+                <!-- Appliquer la couleur sur toute la ligne -->
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding AnomalyType}" Value="Anomalie certaine">
+                                <Setter Property="Background" Value="#ffeeee"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding AnomalyType}" Value="Anomalie potentielle">
+                                <Setter Property="Background" Value="#f8fed7"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Noms des systèmes" Binding="{Binding Name}" Width="*"/>
+                    <DataGridTextColumn Header="" Binding="{Binding Name}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
@@ -51,10 +73,10 @@
         <ScrollViewer x:Name="mainScrollViewer2" 
                       VerticalScrollBarVisibility="Auto" 
                       Background="White" 
-                      HorizontalAlignment="Left" 
-                      Canvas.Left="301" 
-                      Canvas.Top="135" 
-                      VerticalAlignment="Center">
+                      HorizontalAlignment="Center" 
+                      Canvas.Left="309" 
+                      Canvas.Top="306" 
+                      VerticalAlignment="Top" Width="350">
             <DataGrid ItemsSource="{Binding SelectedSystemElements}" 
                       AutoGenerateColumns="False" 
                       Background="White"
@@ -63,7 +85,7 @@
                       BorderThickness="0"
                       HeadersVisibility="Column"
                       Height="145" 
-                      Width="250"
+                      Width="350"
                       SelectionMode="Single"
                       SelectedItem="{Binding SelectedSystem, Mode=TwoWay}">
 
@@ -71,12 +93,12 @@
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding AnomalyType}" Value="Anomalie Certaine">
-                                <Setter Property="Background" Value="#E0A0A1"/>
+                            <DataTrigger Binding="{Binding AnomalyType}" Value="Anomalie certaine">
+                                <Setter Property="Background" Value="#ffeeee"/>
                                 <Setter Property="Foreground" Value="Black"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding AnomalyType}" Value="Anomalie potentielle">
-                                <Setter Property="Background" Value="#FEFD9F"/>
+                                <Setter Property="Background" Value="#f8fed7"/>
                                 <Setter Property="Foreground" Value="Black"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -84,10 +106,27 @@
                 </DataGrid.RowStyle>
 
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*"/>
                     <DataGridTextColumn Header="Id" Binding="{Binding ElementID}" Width="*"/>
                     <DataGridTextColumn Header="Statut" Binding="{Binding AnomalyType}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
+
+
+
+
+
+
+
+
+
+        <Image Height="70" Canvas.Left="192" Source="/AnomalyChecker;component/UI Ressources/logo-groupe-balas.jpg" Stretch="Fill" Canvas.Top="29" Width="72" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox Canvas.Left="286" TextWrapping="Wrap" Text="HydroScan" Canvas.Top="29" Width="208" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="White" Foreground="#FF1B4687" FontFamily="Lucida Sans"/>
+        <TextBox Canvas.Left="246" TextWrapping="Wrap" Text="Types de systèmes" Canvas.Top="173" Width="208" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="White" FontSize="15" Foreground="#FF315B9A" FontFamily="Segoe UI Semibold"/>
+        <TextBox Canvas.Left="54" TextWrapping="Wrap" Text="Noms des systèmes" Canvas.Top="268" Width="208" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="White" FontSize="15" Foreground="#FF315B9A" FontFamily="Segoe UI Semibold"/>
+        <TextBox Canvas.Left="330" TextWrapping="Wrap" Text="Composants de systèmes" Canvas.Top="268" Width="208" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="White" FontSize="15" Foreground="#FF315B9A" FontFamily="Segoe UI Semibold"/>
+        <TextBox Canvas.Left="286" TextWrapping="Wrap" Text="Contrôle des anomalies de canalisations" Canvas.Top="64" Width="294" BorderBrush="White" Foreground="#FF1B4687" FontFamily="Lucida Sans" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBox Canvas.Left="286" TextWrapping="Wrap" Text="Version Beta" Canvas.Top="84" Width="294" BorderBrush="White" Foreground="#FF44628E" FontFamily="Lucida Sans" HorizontalAlignment="Center" VerticalAlignment="Top" FontStyle="Italic"/>
     </Canvas>
 </Window>

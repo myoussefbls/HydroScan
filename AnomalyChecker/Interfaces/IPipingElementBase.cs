@@ -14,6 +14,8 @@ namespace AnomalyChecker
 
         string AnomalyType { get; set; }
 
+        string Type { get; set; }
+
         List<IPipingElementBase> ReturnConnectedElements();
     }
 }
