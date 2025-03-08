@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using AnomalyChecker.Materials;
+using AnomalyChecker.Services;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
 
@@ -18,9 +20,13 @@ namespace AnomalyChecker
 
         private Pipe _relatedPipe;
         public Material Material { get; set; }
-        private Material _relatedSystemMaterial;
+
+
+        private string _relatedSystemMaterial;
 
         MEPSystemType _MEPSystemType;
+
+        public string mepSystemName { get; set; }
 
 
 
@@ -31,6 +37,7 @@ namespace AnomalyChecker
             this.Type = "Canalisation";
 
             Autodesk.Revit.DB.Document pipeDocument = relatedPipe.Document;
+
             _relatedPipe = relatedPipe;
 
             ElementID = relatedPipe.Id.Value;
@@ -40,9 +47,16 @@ namespace AnomalyChecker
             PipeType pipeType = pipeDocument.GetElement(relatedPipe.GetTypeId()) as PipeType;
 
             this.Material = new Material(relatedPipe);
-            this._relatedSystemMaterial = new Material(_MEPSystemType);
 
-            HasIncorrectMaterial = this.Material.Name != this._relatedSystemMaterial.Name;
+            //this.mepSystemName = (mepSystemNameParam != null && mepSystemNameParam.HasValue) ? mepSystemNameParam.AsString() : "Aucun nom de système défini";
+
+            this.mepSystemName = relatedPipe.MEPSystem.Name;
+        }
+
+        public void UpdateRelatedMaterial(string materialName) 
+        {
+            _relatedSystemMaterial = materialName;
+            HasIncorrectMaterial = this._relatedPipe.Name.Contains(_relatedSystemMaterial) ? false : true;
         }
 
         public Pipe ReturnRelatedPipe() 
@@ -63,6 +77,21 @@ namespace AnomalyChecker
                     if (connectedConnector.Owner as FamilyInstance == null) continue;
                     relatedPipeFittings.Add(new PipeFitting(connectedConnector.Owner as FamilyInstance));
                 }
+            }
+
+
+
+
+            PipelineMaterialSpecification materialSpecifications = MaterialSpecificationService.Instance.Specification;
+
+
+            foreach (IPipingElementBase pipeFitting in relatedPipeFittings) 
+            {
+                string systemName = pipeFitting.mepSystemName;
+
+                string systemDesignatedMaterial = materialSpecifications.ReturnRelatedMaterial(systemName);
+
+                pipeFitting.UpdateRelatedMaterial(systemDesignatedMaterial);
             }
 
             return relatedPipeFittings;

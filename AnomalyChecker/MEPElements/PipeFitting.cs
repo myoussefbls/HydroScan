@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AnomalyChecker.Materials;
+using AnomalyChecker.Services;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
 
@@ -19,7 +21,7 @@ namespace AnomalyChecker
 
 
         private Material _material;
-        private Material _relatedSystemMaterial;
+        private string _relatedSystemMaterial;
 
         private FamilyInstance _famInst;
 
@@ -36,13 +38,15 @@ namespace AnomalyChecker
         public bool IsACertainAnomaly = false;
 
         public string mepSystemTypeName;
-        public string mepSystemName;
+        public string mepSystemName { get; set; }
 
         public long RelatedMEPElementID;
 
         public Material Material { get; set; }
 
         public bool HasIncorrectMaterial { get; set; }
+
+
 
 
 
@@ -67,18 +71,22 @@ namespace AnomalyChecker
             Material = new Material(pipeFittingFamInst);
             _relatedPipes = ReturnRelatedPipes(_famInst);
 
-            _relatedSystemMaterial = new Material(mepSystemType);
+            //_relatedSystemMaterial = new Material(mepSystemType);
 
-            HasIncorrectMaterial = _material.Name != _relatedSystemMaterial.Name;
-
-
-
-
-            //this.IsAPotentialAnomaly = IsAPotentialAnomaly_();
-            //this.IsACertainAnomaly = IsACertainAnomaly_();
-
-
+            //HasIncorrectMaterial = _material.Name != _relatedSystemMaterial.Name;
         }
+
+
+        public void UpdateRelatedMaterial(string materialName)
+        {
+            string familyName = _famInst.Symbol.Family.Name;
+            string typeName = _famInst.Symbol.Name;
+
+            _relatedSystemMaterial = materialName;
+
+            HasIncorrectMaterial = (familyName.Contains(materialName) || typeName.Contains(materialName)) ? false : true;
+        }
+
 
         private List<Pipe> ReturnRelatedPipes(FamilyInstance famIns)
         {
@@ -103,12 +111,6 @@ namespace AnomalyChecker
             return _material;
         }
 
-
-        public bool IsRelatedMaterialDifferentFromRelatedSystemMaterial() 
-        {
-            if (_material.Name != _relatedSystemMaterial.Name) return true;
-            return false;  
-        }
         List<IPipingElementBase> IPipingElementBase.ReturnConnectedElements()
         {
             List<IPipingElementBase> relatedMEPElements = new List<IPipingElementBase>();
@@ -125,6 +127,22 @@ namespace AnomalyChecker
                     relatedMEPElements.Add(pipeWrapper);
                 }
             }
+
+
+
+            PipelineMaterialSpecification materialSpecifications = MaterialSpecificationService.Instance.Specification;
+
+
+            foreach (IPipingElementBase pipe in relatedMEPElements)
+            {
+                string systemName = pipe.mepSystemName;
+                var F = true;
+
+                string systemDesignatedMaterial = materialSpecifications.ReturnRelatedMaterial(systemName);
+
+                pipe.UpdateRelatedMaterial(systemDesignatedMaterial);
+            }
+
 
             return relatedMEPElements;
         }

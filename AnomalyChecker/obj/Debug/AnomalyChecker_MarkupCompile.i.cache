@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-11533086365
+31083808654
 
-13-321736426
+18-633070470
 151694235982
-UI\MainWindow.xaml;
+UI\ConfigWindow.xaml;UI\LaunchWindow.xaml;UI\MainWindow.xaml;
 
 False
 

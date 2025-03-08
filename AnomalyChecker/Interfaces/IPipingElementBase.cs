@@ -16,6 +16,10 @@ namespace AnomalyChecker
 
         string Type { get; set; }
 
+        string mepSystemName {  get; set; }
+
         List<IPipingElementBase> ReturnConnectedElements();
+
+        void UpdateRelatedMaterial(string materialName);
     }
 }

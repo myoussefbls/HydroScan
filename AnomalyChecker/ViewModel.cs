@@ -5,26 +5,36 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Xml.Linq;
+using AnomalyChecker.Commands;
+using AnomalyChecker.Materials;
 using AnomalyChecker.MEPElements;
+using AnomalyChecker.Services;
 using AnomalyChecker.UI;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.Creation;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
 using Autodesk.Revit.UI;
+using Microsoft.Win32;
 
 namespace AnomalyChecker
 {
     public class ViewModel : INotifyPropertyChanged
     {
+
+        public TransactionlessCommand SelectXMLFileCommand { get; private set; }
+
+        public TransactionlessCommand LaunchMainWindowCommand { get; private set; }
+
         Autodesk.Revit.DB.Document _currentDocument;
 
         private List<PipeFitting> _pipeFittings = new List<PipeFitting>();
         private IList<Element> _pipesSegments;
 
         private PipingSystemType _selectedPipingSystemType;
-
         public PipingSystemType SelectedPipingSystemType 
         { 
             get {  return _selectedPipingSystemType; }
@@ -39,7 +49,6 @@ namespace AnomalyChecker
         private List<MEPSystem> _selectedMEPsystems;
 
         private ICollection<Element> _pipingSystemTypes;
-
         public ICollection<Element> PipingSystemTypes 
         {
             get { return _pipingSystemTypes; }
@@ -59,7 +68,6 @@ namespace AnomalyChecker
         }
 
         private List<IPipingElementBase> _selectedSystemElements = new List<IPipingElementBase>();
-
         public List<IPipingElementBase> SelectedSystemElements 
         {
             get { return _selectedSystemElements; }
@@ -93,7 +101,13 @@ namespace AnomalyChecker
             }       
         }
 
+        private PipelineMaterialSpecification _pipelineMaterialSpecification;
+
+        private LaunchWindow _launchWindow;
+
         private MainWindow _mainWindow;
+
+        private ConfigWindow _configWindow;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -118,22 +132,95 @@ namespace AnomalyChecker
             this.SelectedSystemElements = selectedSystem.Elements;
         }
 
+
+
+
+        private void SelectXML(object parameter)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "Fichiers XML | *.xml";
+
+            bool? success = fileDialog.ShowDialog();
+
+            if (success == true)
+            {
+                string xmlFilePath = fileDialog.FileName;
+
+
+                PipelineMaterialSpecification pipelineMaterialSpecification = new PipelineMaterialSpecification(xmlFilePath);
+
+                MaterialSpecificationService.Instance.LoadSpecification(pipelineMaterialSpecification); //Using the singleton Pattern
+            }
+
+            AnalyzeModelSystems();
+
+            this._launchWindow.Close();
+
+            this._configWindow = new ConfigWindow() { DataContext = this };
+            this._configWindow.Show();
+
+
+        }
+
+        private void LaunchMainWindow(object parameter) 
+        {
+
+            bool AnySystemMissingMateria = this.ModelSystems.Any(sys => sys.DesignatedMaterial == null);
+
+            if (AnySystemMissingMateria)
+            {
+                MessageBox.Show("Certains materiaux ne sont pas renseignés", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            else 
+            {
+
+                PipelineMaterialSpecification materialSpecifications = MaterialSpecificationService.Instance.Specification;
+
+                foreach (PipingSystemWrapper pipingSys in this.ModelSystems)
+                {
+                    materialSpecifications.UpdateSpecs(pipingSys.Name, pipingSys.DesignatedMaterial);
+                }
+
+                foreach (PipingSystemWrapper pipingSys in this.ModelSystems)
+                {
+                    pipingSys.UpdateElements();
+                }
+
+                materialSpecifications.UpdateXMLFile();
+
+                if (materialSpecifications.HasSpecsBeenUpdated)
+                {
+                    MessageBox.Show("Le fichiers des spécifications a été mis a jour avec vos dernières modifications", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+
+                this._configWindow.Close();
+                this._mainWindow = new MainWindow() { DataContext = this };
+                this._mainWindow.Show();
+            }
+        }
+
         public ViewModel(ExternalCommandData comData) 
         {
+            SelectXMLFileCommand = new TransactionlessCommand(SelectXML);
+            LaunchMainWindowCommand = new TransactionlessCommand(LaunchMainWindow);
+
             this._currentDocument = comData.Application.ActiveUIDocument.Document;
             View activeView = _currentDocument.ActiveView;
 
+            this._launchWindow = new LaunchWindow() { DataContext = this };
+            this._launchWindow.Show();         
+        }
+
+        private void AnalyzeModelSystems() 
+        {
             this.PipingSystemTypes = new FilteredElementCollector(_currentDocument).OfClass(typeof(PipingSystemType)).ToElements();
             List<MEPSystem> mepSystems = new FilteredElementCollector(_currentDocument).OfClass(typeof(MEPSystem)).Cast<MEPSystem>().ToList();
 
-            List<PipingSystemWrapper> list = new List<PipingSystemWrapper>();
             foreach (MEPSystem system in mepSystems)
             {
                 this.ModelSystems.Add(new PipingSystemWrapper(system as PipingSystem));
             }
-
-            this._mainWindow = new MainWindow() { DataContext = this };
-            this._mainWindow.Show();
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

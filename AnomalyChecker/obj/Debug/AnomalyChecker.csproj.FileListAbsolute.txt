@@ -90,3 +90,7 @@ D:\Dropbox\9100_Free\02_Developpement\8000_Revit Addins\7500_AnomalyChecker\Anom
 D:\Dropbox\9100_Free\02_Developpement\8000_Revit Addins\7500_AnomalyChecker\AnomalyChecker\AnomalyChecker\obj\Debug\UI\MainWindow.baml
 D:\Dropbox\9100_Free\02_Developpement\8000_Revit Addins\7500_AnomalyChecker\AnomalyChecker\AnomalyChecker\obj\Debug\AnomalyChecker.g.resources
 D:\Dropbox\9100_Free\02_Developpement\8000_Revit Addins\7500_AnomalyChecker\AnomalyChecker\AnomalyChecker\obj\Debug\AnomalyChecker_MarkupCompile.lref
+D:\Dropbox\9100_Free\02_Developpement\8000_Revit Addins\7500_AnomalyChecker\AnomalyChecker\AnomalyChecker\obj\Debug\UI\LaunchWindow.g.cs
+D:\Dropbox\9100_Free\02_Developpement\8000_Revit Addins\7500_AnomalyChecker\AnomalyChecker\AnomalyChecker\obj\Debug\UI\LaunchWindow.baml
+D:\Dropbox\9100_Free\02_Developpement\8000_Revit Addins\7500_AnomalyChecker\AnomalyChecker\AnomalyChecker\obj\Debug\UI\ConfigWindow.g.cs
+D:\Dropbox\9100_Free\02_Developpement\8000_Revit Addins\7500_AnomalyChecker\AnomalyChecker\AnomalyChecker\obj\Debug\UI\ConfigWindow.baml

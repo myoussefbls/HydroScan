@@ -6,6 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using AnomalyChecker.Materials;
+using AnomalyChecker.Services;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
 
@@ -17,6 +19,7 @@ namespace AnomalyChecker.MEPElements
         private ElementSet _pipingNetwork;
         private MEPSystemType _relatedType;
         public string Name => _mepSystem.Name;
+
 
         public string SystemClassificationName;
 
@@ -38,33 +41,49 @@ namespace AnomalyChecker.MEPElements
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
 
+        private string _designatedMaterial;
+        public string DesignatedMaterial
+        {
+            get { return _designatedMaterial; }
+            set
+            {
+                _designatedMaterial = value;
+            }     
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
         public PipingSystemWrapper(PipingSystem pipingSystem) 
         {
             this._mepSystem = pipingSystem;
             this._pipingNetwork = pipingSystem.PipingNetwork;
             this._relatedType = _mepSystem.Document.GetElement(_mepSystem.GetTypeId()) as MEPSystemType;
-
             this.SystemClassificationName = (pipingSystem.Document.GetElement(pipingSystem.GetTypeId()) as PipingSystemType).SystemClassification.ToString();
 
+            PipelineMaterialSpecification materialSpecifications = MaterialSpecificationService.Instance.Specification;
+            this._designatedMaterial = materialSpecifications.ReturnRelatedMaterial(pipingSystem.Name);
+
             PipingSystemType pipingSystemType = pipingSystem.Document.GetElement(pipingSystem.GetTypeId()) as PipingSystemType;
+
+        }
+        public void UpdateElements() 
+        {
 
             this.Elements = FindSystemElements();
             this.AnomalousPipeSegments = FindAnomalousPipeSegments();
 
             foreach (IPipingElementBase pipingElement in this.Elements)
             {
-                foreach (PipeLineSegment anomalousPipeSegment in AnomalousPipeSegments) 
+                foreach (PipeLineSegment anomalousPipeSegment in AnomalousPipeSegments)
                 {
-                    if (anomalousPipeSegment.Contains(pipingElement)) 
+                    if (anomalousPipeSegment.Contains(pipingElement))
                     {
-                       pipingElement.AnomalyType = anomalousPipeSegment.AnomalyType;
+                        pipingElement.AnomalyType = anomalousPipeSegment.AnomalyType;
                     }
                 }
             }
 
-            List<string> elementsAnomalies =  this.Elements.Select(c => c.AnomalyType).ToList();
+            List<string> elementsAnomalies = this.Elements.Select(c => c.AnomalyType).ToList();
 
             if (elementsAnomalies.Contains("Anomalie certaine")) AnomalyType = "Anomalie certaine";
 
@@ -72,14 +91,7 @@ namespace AnomalyChecker.MEPElements
 
             else { AnomalyType = "RAS"; }
 
-
-            var Z = this.Name;
-            var A = this.AnomalyType;
-            var B = true;
-
-
         }
-
         private List<IPipingElementBase> FindSystemElements() 
         {
             List<IPipingElementBase> output = new List<IPipingElementBase>();
@@ -91,9 +103,20 @@ namespace AnomalyChecker.MEPElements
 
             foreach (Element element in selectedSystemElements)
             {
+                if (element is Pipe)
+                {
+                    PipeWrapper pipeWrapper = new PipeWrapper(element as Pipe);
+                    pipeWrapper.UpdateRelatedMaterial(_designatedMaterial);
+                    output.Add(pipeWrapper);
+                }
 
-                if (element is Pipe) output.Add(new PipeWrapper(element as Pipe));
-                if (element is FamilyInstance) output.Add(new PipeFitting(element as FamilyInstance));
+                if (element is FamilyInstance)
+                {
+                    PipeFitting pipeFitting = new PipeFitting(element as FamilyInstance);
+
+                    pipeFitting.UpdateRelatedMaterial(_designatedMaterial);
+                    output.Add(pipeFitting);
+                }               
             }
 
             return output;
@@ -122,7 +145,6 @@ namespace AnomalyChecker.MEPElements
 
             return PipeLineSections;
         }
-
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

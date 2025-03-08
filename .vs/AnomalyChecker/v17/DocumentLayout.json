@@ -3,32 +3,64 @@
   "WorkspaceRootPath": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\ui\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\ui\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|d:\\dropbox\\9100_free\\02_developpement\\8000_revit addins\\7500_anomalychecker\\anomalychecker\\anomalychecker\\ui\\configwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\ui\\configwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|d:\\dropbox\\9100_free\\02_developpement\\8000_revit addins\\7500_anomalychecker\\anomalychecker\\anomalychecker\\materials\\pipelinematerialspecification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\materials\\pipelinematerialspecification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|d:\\dropbox\\9100_free\\02_developpement\\8000_revit addins\\7500_anomalychecker\\anomalychecker\\anomalychecker\\mepelements\\pipingsystemwrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\mepelements\\pipingsystemwrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\interfaces\\ipipingelementbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\interfaces\\ipipingelementbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\viewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\pipelinesegment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\pipelinesegment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\ui\\configwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\ui\\configwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\ui\\launchwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\ui\\launchwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\mepelements\\pipelinesegment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\mepelements\\pipelinesegment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\mepelements\\pipewrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\mepelements\\pipewrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\mepelements\\pipefitting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\mepelements\\pipefitting.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\mepelements\\pipewrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\mepelements\\pipewrapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\interfaces\\ipipingelementbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\interfaces\\ipipingelementbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\services\\materialspecificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\services\\materialspecificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\materials\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\materials\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\mepelements\\pipeextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\mepelements\\pipeextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\ui\\launchwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\ui\\launchwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\commands\\transactionlesscommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\commands\\transactionlesscommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\interfaces\\ipipingelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -37,10 +69,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\ui\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\ui\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\pipeextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|solutionrelative:anomalychecker\\pipeextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A0EE236E-B6D1-4171-9533-8AC4965BB3A7}|AnomalyChecker\\AnomalyChecker.csproj|D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\anomalychecker\\extcom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -54,7 +82,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 15,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -66,32 +94,188 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
+              "Title": "ViewModel.cs",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\ViewModel.cs",
+              "RelativeDocumentMoniker": "AnomalyChecker\\ViewModel.cs",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\ViewModel.cs",
+              "RelativeToolTip": "AnomalyChecker\\ViewModel.cs",
+              "ViewState": "AgIAANYAAAAAAAAAAAA+wMEAAAB1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-16T09:17:39.248Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "PipingSystemWrapper.cs",
               "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipingSystemWrapper.cs",
               "RelativeDocumentMoniker": "AnomalyChecker\\MEPElements\\PipingSystemWrapper.cs",
               "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipingSystemWrapper.cs",
               "RelativeToolTip": "AnomalyChecker\\MEPElements\\PipingSystemWrapper.cs",
-              "ViewState": "AgIAADEAAAAAAAAAAAAswEgAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAiwIEAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-24T16:21:06.522Z",
+              "WhenOpened": "2025-03-04T21:22:43.725Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PipeWrapper.cs",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipeWrapper.cs",
+              "RelativeDocumentMoniker": "AnomalyChecker\\MEPElements\\PipeWrapper.cs",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipeWrapper.cs",
+              "RelativeToolTip": "AnomalyChecker\\MEPElements\\PipeWrapper.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAIwF0AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T19:37:13.978Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LaunchWindow.xaml",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\UI\\LaunchWindow.xaml",
+              "RelativeDocumentMoniker": "AnomalyChecker\\UI\\LaunchWindow.xaml",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\UI\\LaunchWindow.xaml",
+              "RelativeToolTip": "AnomalyChecker\\UI\\LaunchWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-04T16:25:03.811Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ConfigWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\UI\\ConfigWindow.xaml.cs",
+              "RelativeDocumentMoniker": "AnomalyChecker\\UI\\ConfigWindow.xaml.cs",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\UI\\ConfigWindow.xaml.cs",
+              "RelativeToolTip": "AnomalyChecker\\UI\\ConfigWindow.xaml.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAqwBIAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T21:06:02.567Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\UI\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "AnomalyChecker\\UI\\MainWindow.xaml",
-              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\UI\\MainWindow.xaml",
-              "RelativeToolTip": "AnomalyChecker\\UI\\MainWindow.xaml",
+              "Title": "ConfigWindow.xaml",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\UI\\ConfigWindow.xaml",
+              "RelativeDocumentMoniker": "AnomalyChecker\\UI\\ConfigWindow.xaml",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\UI\\ConfigWindow.xaml",
+              "RelativeToolTip": "AnomalyChecker\\UI\\ConfigWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-23T22:01:16.854Z",
+              "WhenOpened": "2025-03-05T11:37:17.243Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PipelineMaterialSpecification.cs",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\Materials\\PipelineMaterialSpecification.cs",
+              "RelativeDocumentMoniker": "AnomalyChecker\\Materials\\PipelineMaterialSpecification.cs",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\Materials\\PipelineMaterialSpecification.cs",
+              "RelativeToolTip": "AnomalyChecker\\Materials\\PipelineMaterialSpecification.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAqwFQAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T16:55:05.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IPipingElementBase.cs",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\Interfaces\\IPipingElementBase.cs",
+              "RelativeDocumentMoniker": "AnomalyChecker\\Interfaces\\IPipingElementBase.cs",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\Interfaces\\IPipingElementBase.cs",
+              "RelativeToolTip": "AnomalyChecker\\Interfaces\\IPipingElementBase.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwBIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T00:52:24.768Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "PipeExtensions.cs",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipeExtensions.cs",
+              "RelativeDocumentMoniker": "AnomalyChecker\\MEPElements\\PipeExtensions.cs",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipeExtensions.cs",
+              "RelativeToolTip": "AnomalyChecker\\MEPElements\\PipeExtensions.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAADwvxAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-16T13:32:04.353Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Material.cs",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\Materials\\Material.cs",
+              "RelativeDocumentMoniker": "AnomalyChecker\\Materials\\Material.cs",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\Materials\\Material.cs",
+              "RelativeToolTip": "AnomalyChecker\\Materials\\Material.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T16:54:45.359Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "LaunchWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\UI\\LaunchWindow.xaml.cs",
+              "RelativeDocumentMoniker": "AnomalyChecker\\UI\\LaunchWindow.xaml.cs",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\UI\\LaunchWindow.xaml.cs",
+              "RelativeToolTip": "AnomalyChecker\\UI\\LaunchWindow.xaml.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T16:25:20.432Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PipeLineSegment.cs",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipeLineSegment.cs",
+              "RelativeDocumentMoniker": "AnomalyChecker\\MEPElements\\PipeLineSegment.cs",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipeLineSegment.cs",
+              "RelativeToolTip": "AnomalyChecker\\MEPElements\\PipeLineSegment.cs",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAwwHoAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T13:02:57.879Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 8,
+              "Title": "PipeFitting.cs",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipeFitting.cs",
+              "RelativeDocumentMoniker": "AnomalyChecker\\MEPElements\\PipeFitting.cs",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipeFitting.cs",
+              "RelativeToolTip": "AnomalyChecker\\MEPElements\\PipeFitting.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAqwFEAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-16T12:29:23.732Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MaterialSpecificationService.cs",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\Services\\MaterialSpecificationService.cs",
+              "RelativeDocumentMoniker": "AnomalyChecker\\Services\\MaterialSpecificationService.cs",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\Services\\MaterialSpecificationService.cs",
+              "RelativeToolTip": "AnomalyChecker\\Services\\MaterialSpecificationService.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAIwB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T18:44:55.022Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "TransactionlessCommand.cs",
+              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\Commands\\TransactionlessCommand.cs",
+              "RelativeDocumentMoniker": "AnomalyChecker\\Commands\\TransactionlessCommand.cs",
+              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\Commands\\TransactionlessCommand.cs",
+              "RelativeToolTip": "AnomalyChecker\\Commands\\TransactionlessCommand.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAkAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T16:36:06.309Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\UI\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "AnomalyChecker\\UI\\MainWindow.xaml.cs",
@@ -103,20 +287,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PipeWrapper.cs",
-              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipeWrapper.cs",
-              "RelativeDocumentMoniker": "AnomalyChecker\\MEPElements\\PipeWrapper.cs",
-              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipeWrapper.cs",
-              "RelativeToolTip": "AnomalyChecker\\MEPElements\\PipeWrapper.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAlwB4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T19:37:13.978Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 15,
               "Title": "IPipingElement.cs",
               "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\Interfaces\\IPipingElement.cs",
               "RelativeDocumentMoniker": "AnomalyChecker\\Interfaces\\IPipingElement.cs",
@@ -128,20 +299,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ViewModel.cs",
-              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\ViewModel.cs",
-              "RelativeDocumentMoniker": "AnomalyChecker\\ViewModel.cs",
-              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\ViewModel.cs",
-              "RelativeToolTip": "AnomalyChecker\\ViewModel.cs",
-              "ViewState": "AgIAAHkAAAAAAAAAAAAowIoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-16T09:17:39.248Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 17,
               "Title": "ExtCom.cs",
               "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\ExtCom.cs",
               "RelativeDocumentMoniker": "AnomalyChecker\\ExtCom.cs",
@@ -150,57 +308,6 @@
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-16T09:16:44.12Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PipeFitting.cs",
-              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipeFitting.cs",
-              "RelativeDocumentMoniker": "AnomalyChecker\\MEPElements\\PipeFitting.cs",
-              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\MEPElements\\PipeFitting.cs",
-              "RelativeToolTip": "AnomalyChecker\\MEPElements\\PipeFitting.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAuwDIAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-16T12:29:23.732Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "PipeExtensions.cs",
-              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\PipeExtensions.cs",
-              "RelativeDocumentMoniker": "AnomalyChecker\\PipeExtensions.cs",
-              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\PipeExtensions.cs",
-              "RelativeToolTip": "AnomalyChecker\\PipeExtensions.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAADwvxAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-16T13:32:04.353Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PipeLineSegment.cs",
-              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\PipeLineSegment.cs",
-              "RelativeDocumentMoniker": "AnomalyChecker\\PipeLineSegment.cs",
-              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\PipeLineSegment.cs",
-              "RelativeToolTip": "AnomalyChecker\\PipeLineSegment.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAEcAAACcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T13:02:57.879Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IPipingElementBase.cs",
-              "DocumentMoniker": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\Interfaces\\IPipingElementBase.cs",
-              "RelativeDocumentMoniker": "AnomalyChecker\\Interfaces\\IPipingElementBase.cs",
-              "ToolTip": "D:\\Dropbox\\9100_Free\\02_Developpement\\8000_Revit Addins\\7500_AnomalyChecker\\AnomalyChecker\\AnomalyChecker\\Interfaces\\IPipingElementBase.cs",
-              "RelativeToolTip": "AnomalyChecker\\Interfaces\\IPipingElementBase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T20:12:53.298Z",
-              "EditorCaption": ""
             }
           ]
         }
