@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Xml.Linq;
+using AnomalyChecker.MEPElements;
 
 namespace AnomalyChecker.Materials
 {
@@ -14,28 +15,23 @@ namespace AnomalyChecker.Materials
         private XDocument _xmlDoc;
         private Dictionary<string, string> _specs;
         private string _xmlDocPath;
-        public bool HasSpecsBeenUpdated;
+        public bool HasBeenUpdated = false;
 
         public PipelineMaterialSpecification(string xmlDocPath) 
         {
-            HasSpecsBeenUpdated = false;
             _xmlDocPath = xmlDocPath;
             _xmlDoc = XDocument.Load(xmlDocPath);
-
             _specs = new Dictionary<string, string>();
 
-            var fluids = _xmlDoc.Descendants("Fluide");
+            IEnumerable<XElement> fluids = _xmlDoc.Descendants("Fluide");
 
-            foreach (var fluid in fluids)
+            foreach (XElement fluid in fluids)
             {
-                string nom = fluid.Attribute("Systeme")?.Value;
-                string materiau = fluid.Attribute("Materiau")?.Value;
-
-                _specs[nom] = materiau;
+                string systemName = fluid.Attribute("Systeme")?.Value;
+                string systemMaterial = fluid.Attribute("Materiau")?.Value;
+                _specs[systemName] = systemMaterial;
             }
         }
-
-
         public string ReturnRelatedMaterial(string systemName) 
         {
             if (_specs.TryGetValue(systemName, out string materiau))
@@ -45,15 +41,17 @@ namespace AnomalyChecker.Materials
             return null;
         }
 
-        public void UpdateSpecs(string systemName, string systemMaterial) 
+        public void UpdateSpecs(List<PipingSystemWrapper> pipingSystems)
         {
-            _specs[systemName] = systemMaterial;
+            foreach (PipingSystemWrapper pipingSys in pipingSystems)
+            {
+                _specs[pipingSys.Name] = pipingSys.DesignatedMaterial;
+            }       
         }
 
         public void UpdateXMLFile() 
         {
             XElement root = _xmlDoc.Element("Correspondances");
-
 
             foreach (KeyValuePair<string, string> entry in _specs)
             {
@@ -68,24 +66,17 @@ namespace AnomalyChecker.Materials
 
                     string initialMaterialName = (string)element.Attribute("Materiau");
 
-
                     if (element != null) element.SetAttributeValue("Materiau", materialName);
 
-
-
-                    if (initialMaterialName != materialName) HasSpecsBeenUpdated = true;
-
-
+                    if (initialMaterialName != materialName) HasBeenUpdated = true;
                 }
-
 
                 else
                 {
                     root.Add(new XElement("Fluide", new XAttribute("Systeme", systemName), new XAttribute("Materiau", materialName)));
-                    HasSpecsBeenUpdated = true;
+                    HasBeenUpdated = true;
                 }
             }
-
             _xmlDoc.Save(_xmlDocPath);
         }
     }

@@ -11,11 +11,11 @@ namespace AnomalyChecker.Commands
     {
         public event EventHandler CanExecuteChanged;
 
-        private Action<object> _action;
+        private readonly List<Action> _actions;
 
-        public TransactionlessCommand(Action<object> action)
+        public TransactionlessCommand(params Action[] actions)
         {
-            this._action = action;
+            this._actions = new List<Action>(actions);
         }
 
         public bool CanExecute(object parameter)
@@ -25,7 +25,11 @@ namespace AnomalyChecker.Commands
 
         public void Execute(object parameter)
         {
-            _action.Invoke(parameter);
+            foreach (var action in _actions)
+            {
+                action();
+                //_action.Invoke(parameter);
+            }       
         }
     }
 }

@@ -64,11 +64,9 @@ namespace AnomalyChecker.MEPElements
             this._designatedMaterial = materialSpecifications.ReturnRelatedMaterial(pipingSystem.Name);
 
             PipingSystemType pipingSystemType = pipingSystem.Document.GetElement(pipingSystem.GetTypeId()) as PipingSystemType;
-
         }
         public void UpdateElements() 
         {
-
             this.Elements = FindSystemElements();
             this.AnomalousPipeSegments = FindAnomalousPipeSegments();
 

@@ -64,6 +64,8 @@
     <Compile Include="MEPElements\PipeWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MaterialSpecificationService.cs" />
+    <Compile Include="Services\RevitDataService.cs" />
+    <Compile Include="Services\WindowService.cs" />
     <Compile Include="UI\ConfigWindow.xaml.cs">
       <DependentUpon>ConfigWindow.xaml</DependentUpon>
     </Compile>
@@ -73,6 +75,7 @@
     <Compile Include="UI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\UIMessage.cs" />
     <Compile Include="ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

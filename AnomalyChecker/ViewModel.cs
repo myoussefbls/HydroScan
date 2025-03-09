@@ -1,38 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Xml.Linq;
 using AnomalyChecker.Commands;
 using AnomalyChecker.Materials;
 using AnomalyChecker.MEPElements;
 using AnomalyChecker.Services;
 using AnomalyChecker.UI;
-using Autodesk.Revit.Attributes;
-using Autodesk.Revit.Creation;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
 using Autodesk.Revit.UI;
-using Microsoft.Win32;
 
 namespace AnomalyChecker
 {
     public class ViewModel : INotifyPropertyChanged
     {
-
-        public TransactionlessCommand SelectXMLFileCommand { get; private set; }
-
-        public TransactionlessCommand LaunchMainWindowCommand { get; private set; }
-
         Autodesk.Revit.DB.Document _currentDocument;
 
-        private List<PipeFitting> _pipeFittings = new List<PipeFitting>();
-        private IList<Element> _pipesSegments;
+        private RevitDataService _revitData;
 
         private PipingSystemType _selectedPipingSystemType;
         public PipingSystemType SelectedPipingSystemType 
@@ -41,12 +26,10 @@ namespace AnomalyChecker
             set 
             {
                 _selectedPipingSystemType = value;
-                UpdateSelectedSystemNames(value);
+                UpdateDisplayedSystemNames(value);
                 OnPropertyChanged();         
             }     
         }
-
-        private List<MEPSystem> _selectedMEPsystems;
 
         private ICollection<Element> _pipingSystemTypes;
         public ICollection<Element> PipingSystemTypes 
@@ -90,139 +73,92 @@ namespace AnomalyChecker
             }    
         }
 
-        private List<PipingSystemWrapper> _modelPipingSystems = new List<PipingSystemWrapper>();
-        public List<PipingSystemWrapper> ModelSystems 
+        private List<PipingSystemWrapper> _pipingSystems = new List<PipingSystemWrapper>();
+        public List<PipingSystemWrapper> PipingSystems 
         {
-            get { return _modelPipingSystems; }
+            get { return _pipingSystems; }
             set 
             {
-                _modelPipingSystems = value;
+                _pipingSystems = value;
                 OnPropertyChanged();
             }       
         }
 
-        private PipelineMaterialSpecification _pipelineMaterialSpecification;
+        private WindowService _windowService;
 
-        private LaunchWindow _launchWindow;
-
-        private MainWindow _mainWindow;
-
-        private ConfigWindow _configWindow;
+        private MaterialSpecificationService _specService;
+        public TransactionlessCommand SelectXMLFileCommand { get; private set; }
+        public TransactionlessCommand LaunchMainWindowCommand { get; private set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void UpdateSelectedSystemNames(PipingSystemType selectedPipingSystemType) 
+        private void UpdateDisplayedSystemNames(PipingSystemType selectedPipingSystemType) 
         {
-            string selectedpipingSystemTypeName = selectedPipingSystemType.SystemClassification.ToString();
-
-            List<PipingSystemWrapper> selectedSystems= new List<PipingSystemWrapper>();
-
-            FilteredElementCollector documentMEPSystems = new FilteredElementCollector(_currentDocument).OfClass(typeof(MEPSystem));
-
-            foreach (PipingSystemWrapper pipingSystem in ModelSystems)
-            {
-                string pipingSystemTypeName = pipingSystem.SystemClassificationName;
-                if (pipingSystemTypeName == selectedpipingSystemTypeName ) selectedSystems.Add(pipingSystem);
-            }
-
-            this.PreSelectedSystemNames = selectedSystems;
+            string selectedPipingSystemTypeName = selectedPipingSystemType.SystemClassification.ToString();
+            this.PreSelectedSystemNames = _pipingSystems.Where(system => system.SystemClassificationName == selectedPipingSystemTypeName).ToList();
         }
+
         private void UpdateSelectedSystemItems(PipingSystemWrapper selectedSystem) 
         {
             this.SelectedSystemElements = selectedSystem.Elements;
         }
 
-
-
-
-        private void SelectXML(object parameter)
+        private void UpdatePipingSystems()
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "Fichiers XML | *.xml";
-
-            bool? success = fileDialog.ShowDialog();
-
-            if (success == true)
-            {
-                string xmlFilePath = fileDialog.FileName;
-
-
-                PipelineMaterialSpecification pipelineMaterialSpecification = new PipelineMaterialSpecification(xmlFilePath);
-
-                MaterialSpecificationService.Instance.LoadSpecification(pipelineMaterialSpecification); //Using the singleton Pattern
-            }
-
-            AnalyzeModelSystems();
-
-            this._launchWindow.Close();
-
-            this._configWindow = new ConfigWindow() { DataContext = this };
-            this._configWindow.Show();
-
-
+            this.PipingSystems = _revitData.ReturnPipingSystems().Select(system => new PipingSystemWrapper(system)).ToList();
         }
 
-        private void LaunchMainWindow(object parameter) 
+        private void AnalyzePipingMaterials()
         {
+            bool anySystemMissingMaterial = ArePipingSystemsMissingMaterials();
 
-            bool AnySystemMissingMateria = this.ModelSystems.Any(sys => sys.DesignatedMaterial == null);
-
-            if (AnySystemMissingMateria)
+            if (!anySystemMissingMaterial)
             {
-                MessageBox.Show("Certains materiaux ne sont pas renseignés", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
+                UpdateSpecs();
+                UpdatePipingSystemData();
             }
 
-            else 
-            {
+            ShowAnalysisResults(anySystemMissingMaterial);
+        }
 
-                PipelineMaterialSpecification materialSpecifications = MaterialSpecificationService.Instance.Specification;
+        private bool ArePipingSystemsMissingMaterials()
+        {
+            return _pipingSystems.Any(sys => sys.DesignatedMaterial == null);
+        }
 
-                foreach (PipingSystemWrapper pipingSys in this.ModelSystems)
-                {
-                    materialSpecifications.UpdateSpecs(pipingSys.Name, pipingSys.DesignatedMaterial);
-                }
+        private void UpdatePipingSystemData()
+        {
+            _pipingSystems.ForEach(pipingSys => pipingSys.UpdateElements());
+        }
 
-                foreach (PipingSystemWrapper pipingSys in this.ModelSystems)
-                {
-                    pipingSys.UpdateElements();
-                }
+        private void ShowAnalysisResults(bool anySystemMissingMaterial)
+        {
+            if (anySystemMissingMaterial) UIMessage.SignalUnspecifiedMaterials();
+            else { _windowService.ShowMainWindow(); }
+        }
 
-                materialSpecifications.UpdateXMLFile();
+        private void UpdateSpecs() 
+        {
+            _specService.Specification.UpdateSpecs(_pipingSystems);
+            _specService.Specification.UpdateXMLFile();
 
-                if (materialSpecifications.HasSpecsBeenUpdated)
-                {
-                    MessageBox.Show("Le fichiers des spécifications a été mis a jour avec vos dernières modifications", "Attention", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-
-                this._configWindow.Close();
-                this._mainWindow = new MainWindow() { DataContext = this };
-                this._mainWindow.Show();
-            }
+            if (_specService.Specification.HasBeenUpdated) UIMessage.SignalSpecificationUpdate();
         }
 
         public ViewModel(ExternalCommandData comData) 
         {
-            SelectXMLFileCommand = new TransactionlessCommand(SelectXML);
-            LaunchMainWindowCommand = new TransactionlessCommand(LaunchMainWindow);
-
             this._currentDocument = comData.Application.ActiveUIDocument.Document;
-            View activeView = _currentDocument.ActiveView;
+            this._revitData = new RevitDataService(_currentDocument);
+            this.PipingSystemTypes = _revitData.ReturnPipingSystemsTypes();
 
-            this._launchWindow = new LaunchWindow() { DataContext = this };
-            this._launchWindow.Show();         
+            this._specService = MaterialSpecificationService.Instance;
+            this._windowService = new WindowService(this);
+
+            SelectXMLFileCommand = new TransactionlessCommand(_specService.LoadSpecificationFromXMLFile, UpdatePipingSystems, _windowService.ShowConfigWindow);
+            LaunchMainWindowCommand = new TransactionlessCommand(AnalyzePipingMaterials);
+
+            this._windowService.ShowLaunchWindow();
         }
-
-        private void AnalyzeModelSystems() 
-        {
-            this.PipingSystemTypes = new FilteredElementCollector(_currentDocument).OfClass(typeof(PipingSystemType)).ToElements();
-            List<MEPSystem> mepSystems = new FilteredElementCollector(_currentDocument).OfClass(typeof(MEPSystem)).Cast<MEPSystem>().ToList();
-
-            foreach (MEPSystem system in mepSystems)
-            {
-                this.ModelSystems.Add(new PipingSystemWrapper(system as PipingSystem));
-            }
-        }
-
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

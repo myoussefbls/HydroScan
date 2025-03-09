@@ -21,7 +21,7 @@
 
     <Canvas>
 
-        <DataGrid ItemsSource="{Binding ModelSystems}" 
+        <DataGrid ItemsSource="{Binding PipingSystems}" 
           AutoGenerateColumns="False"
           Background="White"
           GridLinesVisibility="None"

@@ -60,8 +60,7 @@ namespace AnomalyChecker
             //}
 
 
-            var AA = this._ContainedElements;
-            var FF = true;
+
 
             if (_ContainedElements.Count == 1) 
             {
@@ -81,8 +80,6 @@ namespace AnomalyChecker
                         this.AnomalyType = "Anomalie potentielle";
 
                     }
-
-
                 }
 
                 if (connectedElements.Count > 1) this.AnomalyType = "Anomalie certaine";
