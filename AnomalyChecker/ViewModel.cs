@@ -50,8 +50,8 @@ namespace AnomalyChecker
             }
         }
 
-        private List<IPipingElementBase> _selectedSystemElements = new List<IPipingElementBase>();
-        public List<IPipingElementBase> SelectedSystemElements 
+        private List<IPipingElement> _selectedSystemElements = new List<IPipingElement>();
+        public List<IPipingElement> SelectedSystemElements 
         {
             get { return _selectedSystemElements; }
             set 
@@ -115,7 +115,7 @@ namespace AnomalyChecker
             if (!anySystemMissingMaterial)
             {
                 UpdateSpecs();
-                UpdatePipingSystemData();
+                AnalyzePipingSystemsAnomalies();
             }
 
             ShowAnalysisResults(anySystemMissingMaterial);
@@ -126,9 +126,9 @@ namespace AnomalyChecker
             return _pipingSystems.Any(sys => sys.DesignatedMaterial == null);
         }
 
-        private void UpdatePipingSystemData()
+        private void AnalyzePipingSystemsAnomalies()
         {
-            _pipingSystems.ForEach(pipingSys => pipingSys.UpdateElements());
+            _pipingSystems.ForEach(pipingSys => pipingSys.AnalyzeAnomalies());
         }
 
         private void ShowAnalysisResults(bool anySystemMissingMaterial)

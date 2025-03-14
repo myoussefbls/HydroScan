@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Autodesk.Revit.DB.Plumbing;
-using Autodesk.Revit.DB;
 
 namespace AnomalyChecker
 {
-    public interface IPipingElement<T> : IPipingElementBase
+    public interface IPipingElement
     {
+        long ElementID { get; }
+        bool HasIncorrectMaterial { get;}
 
+        string AnomalyType { get; set; }
 
-        List<T> ReturnConnectedElements();
+        string Type { get; set; }
 
+        string mepSystemName {  get; set; }
+
+        List<IPipingElement> ReturnConnectedElements();
+
+        void UpdateRelatedMaterial(string materialName);
     }
 }

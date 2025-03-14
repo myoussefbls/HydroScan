@@ -54,13 +54,11 @@
     <Compile Include="Commands\TransactionlessCommand.cs" />
     <Compile Include="ExtCom.cs" />
     <Compile Include="Interfaces\IPipingElement.cs" />
-    <Compile Include="Interfaces\IPipingElementBase.cs" />
-    <Compile Include="Materials\Material.cs" />
     <Compile Include="Materials\PipelineMaterialSpecification.cs" />
     <Compile Include="MEPElements\PipingSystemWrapper.cs" />
     <Compile Include="MEPElements\PipeExtensions.cs" />
     <Compile Include="MEPElements\PipeFitting.cs" />
-    <Compile Include="MEPElements\PipeLineSegment.cs" />
+    <Compile Include="MEPElements\AnomalousPipeLineSegment.cs" />
     <Compile Include="MEPElements\PipeWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MaterialSpecificationService.cs" />

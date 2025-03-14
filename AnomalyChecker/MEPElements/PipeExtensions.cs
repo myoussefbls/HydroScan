@@ -11,15 +11,6 @@ namespace AnomalyChecker
 {
     public static class PipeTypeExtensions
     {
-        public static Material ReturnMaterial(this Pipe selectedPipe) 
-        {
-
-            Autodesk.Revit.DB.Document pipeDocument = selectedPipe.Document;
-            PipeType pipeType = pipeDocument.GetElement(selectedPipe.GetTypeId()) as PipeType;
-
-            return new Material(pipeType);      
-        }
-
         public static List<PipeFitting> ReturnRelatedPipeFittings(this Pipe selectedPipe) 
         {
             List<PipeFitting> relatedPipeFittings = new List<PipeFitting>();

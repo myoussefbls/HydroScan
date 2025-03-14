@@ -16,18 +16,14 @@ namespace AnomalyChecker.MEPElements
     public class PipingSystemWrapper : INotifyPropertyChanged
     {
         private PipingSystem _mepSystem;
-        private ElementSet _pipingNetwork;
-        private MEPSystemType _relatedType;
         public string Name => _mepSystem.Name;
-
 
         public string SystemClassificationName;
 
-        public List<IPipingElementBase> Elements;
-        private List<PipeLineSegment> AnomalousPipeSegments;
+        public List<IPipingElement> Elements;
+        private List<AnomalousPipeLineSegment> AnomalousPipeSegments;
 
         private string _anomalyType;
-
         public string AnomalyType
         {
             get => _anomalyType;
@@ -40,7 +36,6 @@ namespace AnomalyChecker.MEPElements
                 }
             }
         }
-
 
         private string _designatedMaterial;
         public string DesignatedMaterial
@@ -56,8 +51,6 @@ namespace AnomalyChecker.MEPElements
         public PipingSystemWrapper(PipingSystem pipingSystem) 
         {
             this._mepSystem = pipingSystem;
-            this._pipingNetwork = pipingSystem.PipingNetwork;
-            this._relatedType = _mepSystem.Document.GetElement(_mepSystem.GetTypeId()) as MEPSystemType;
             this.SystemClassificationName = (pipingSystem.Document.GetElement(pipingSystem.GetTypeId()) as PipingSystemType).SystemClassification.ToString();
 
             PipelineMaterialSpecification materialSpecifications = MaterialSpecificationService.Instance.Specification;
@@ -65,34 +58,10 @@ namespace AnomalyChecker.MEPElements
 
             PipingSystemType pipingSystemType = pipingSystem.Document.GetElement(pipingSystem.GetTypeId()) as PipingSystemType;
         }
-        public void UpdateElements() 
+
+        private List<IPipingElement> FindSystemElements()
         {
-            this.Elements = FindSystemElements();
-            this.AnomalousPipeSegments = FindAnomalousPipeSegments();
-
-            foreach (IPipingElementBase pipingElement in this.Elements)
-            {
-                foreach (PipeLineSegment anomalousPipeSegment in AnomalousPipeSegments)
-                {
-                    if (anomalousPipeSegment.Contains(pipingElement))
-                    {
-                        pipingElement.AnomalyType = anomalousPipeSegment.AnomalyType;
-                    }
-                }
-            }
-
-            List<string> elementsAnomalies = this.Elements.Select(c => c.AnomalyType).ToList();
-
-            if (elementsAnomalies.Contains("Anomalie certaine")) AnomalyType = "Anomalie certaine";
-
-            else if (elementsAnomalies.Contains("Anomalie potentielle")) AnomalyType = "Anomalie potentielle";
-
-            else { AnomalyType = "RAS"; }
-
-        }
-        private List<IPipingElementBase> FindSystemElements() 
-        {
-            List<IPipingElementBase> output = new List<IPipingElementBase>();
+            List<IPipingElement> output = new List<IPipingElement>();
 
             List<Element> selectedSystemElements = new FilteredElementCollector(_mepSystem.Document)
             .WhereElementIsNotElementType().Where(e => e is Pipe || e is FamilyInstance) // Filtre les canalisations et raccords
@@ -101,48 +70,52 @@ namespace AnomalyChecker.MEPElements
 
             foreach (Element element in selectedSystemElements)
             {
-                if (element is Pipe)
-                {
-                    PipeWrapper pipeWrapper = new PipeWrapper(element as Pipe);
-                    pipeWrapper.UpdateRelatedMaterial(_designatedMaterial);
-                    output.Add(pipeWrapper);
-                }
+                IPipingElement pipingElement = null;
 
-                if (element is FamilyInstance)
-                {
-                    PipeFitting pipeFitting = new PipeFitting(element as FamilyInstance);
+                if (element is Pipe) pipingElement = new PipeWrapper(element as Pipe);
+                else if (element is FamilyInstance) pipingElement = new PipeFitting(element as FamilyInstance);
 
-                    pipeFitting.UpdateRelatedMaterial(_designatedMaterial);
-                    output.Add(pipeFitting);
-                }               
+                pipingElement.UpdateRelatedMaterial(_designatedMaterial);
+                output.Add(pipingElement);
             }
 
             return output;
         }
-        private List<PipeLineSegment> FindAnomalousPipeSegments()
+
+        public void AnalyzeAnomalies() 
         {
-            var incorrectElements = this.Elements.Where(obj => obj.HasIncorrectMaterial).ToList();
+            this.Elements = FindSystemElements();
+            this.AnomalousPipeSegments = FindAnomalousPipeSegments();
 
-            List<PipeLineSegment> PipeLineSections = new List<PipeLineSegment>();
-
-            foreach (IPipingElementBase pipingElement in incorrectElements)
+            foreach (var pipingElement in this.Elements)
             {
-                bool IsElementProcessed = false;
-
-                foreach (PipeLineSegment pipeLineSection in PipeLineSections)
-                {
-                    if (pipeLineSection.Contains(pipingElement))
-                    {
-                        IsElementProcessed = true;
-                    }
-                }
-
-                if (IsElementProcessed) { continue; }
-                PipeLineSections.Add(new PipeLineSegment(pipingElement));
+                pipingElement.AnomalyType = this.AnomalousPipeSegments.FirstOrDefault(segment => segment.Contains(pipingElement))?.AnomalyType;
             }
 
-            return PipeLineSections;
+            List<string> elementsAnomalies = this.Elements.Select(element => element.AnomalyType).ToList();
+
+            AnomalyType = elementsAnomalies.Contains("Anomalie certaine") ? "Anomalie certaine" :
+                          elementsAnomalies.Contains("Anomalie potentielle") ? "Anomalie potentielle" :
+                          "RAS";
         }
+
+        private List<AnomalousPipeLineSegment> FindAnomalousPipeSegments()
+        {
+            List<AnomalousPipeLineSegment> anomalousPipeLineSegments = new List<AnomalousPipeLineSegment>();
+
+            var incorrectElements = this.Elements.Where(obj => obj.HasIncorrectMaterial).ToList();
+
+            foreach (IPipingElement pipingElement in incorrectElements)
+            {
+                bool IsElementProcessed = anomalousPipeLineSegments.Any(segment =>  segment.Contains(pipingElement));
+                if (IsElementProcessed) { continue; }
+
+                anomalousPipeLineSegments.Add(new AnomalousPipeLineSegment(pipingElement));
+            }
+
+            return anomalousPipeLineSegments;
+        }
+
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
