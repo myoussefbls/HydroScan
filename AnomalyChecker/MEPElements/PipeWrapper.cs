@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using AnomalyChecker.Materials;
+using AnomalyChecker.MEPElements;
 using AnomalyChecker.Services;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
@@ -27,7 +28,7 @@ namespace AnomalyChecker
 
         public PipeWrapper(Pipe relatedPipe) 
         {
-            this.Type = "Canalisation";
+            this.Type = "Pipe";
 
             _relatedPipe = relatedPipe;
             ElementID = relatedPipe.Id.Value;
@@ -53,24 +54,52 @@ namespace AnomalyChecker
         {
             var materialSpecifications = MaterialSpecificationService.Instance.Specification;
             var connectors = _relatedPipe.ConnectorManager.Connectors;
-            var relatedPipeFittings = new List<IPipingElement>();
+            var connectedElements = new List<IPipingElement>();
 
             foreach (Connector connector in connectors)
             {
                 foreach (Connector connectedConnector in connector.AllRefs)
                 {
-                    FamilyInstance pipeFittingFamInst = connectedConnector.Owner as FamilyInstance;
-                    if (pipeFittingFamInst == null) continue;
+                    FamilyInstance connectedElementFamInst = connectedConnector.Owner as FamilyInstance;
+                    if (connectedElementFamInst == null) continue;
 
-                    var pipeFitting = new PipeFitting(pipeFittingFamInst);
-                    pipeFitting.UpdateRelatedMaterial(materialSpecifications);
-                    relatedPipeFittings.Add(pipeFitting);
+                    if (connectedElementFamInst.Category.Id.Value == (int)BuiltInCategory.OST_PipeAccessory) 
+                    {
+                        var pipeAccessory = new PipeAccessory(connectedElementFamInst);
+                        pipeAccessory.UpdateRelatedMaterial(materialSpecifications);
+                        connectedElements.Add(pipeAccessory);
+                    }
+
+                    if (connectedElementFamInst.Category.Id.Value == (int)BuiltInCategory.OST_PipeFitting) 
+                    {
+                        var pipeFitting = new PipeFitting(connectedElementFamInst);
+                        pipeFitting.UpdateRelatedMaterial(materialSpecifications);
+                        connectedElements.Add(pipeFitting);
+                    }
                 }
             }
 
-            return relatedPipeFittings;
+            return connectedElements;
         }
 
+        public bool IsConnectedToAccessory() 
+        {
+            var connectors = _relatedPipe.ConnectorManager.Connectors;
+
+            foreach (Connector connector in connectors)
+            {
+                foreach (Connector connectedConnector in connector.AllRefs)
+                {
+                    FamilyInstance connectedElement = connectedConnector.Owner as FamilyInstance;
+
+                    if (connectedElement == null) continue;
+
+                    if (connectedElement.Category.Id.Value == (int)BuiltInCategory.OST_PipeAccessory) return true;
+                }
+            }
+
+            return false;
+        }
 
 
     }

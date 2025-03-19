@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using AnomalyChecker.Materials;
+using AnomalyChecker.MEPElements;
 using AnomalyChecker.Services;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
@@ -15,6 +16,10 @@ namespace AnomalyChecker
     {
         public long ElementID { get; set;}
 
+        public bool HasIncorrectMaterial { get; set; }
+        public string AnomalyType { get; set; }
+        public string Type { get; set; }
+        public string mepSystemName { get; set; }
 
         private string _relatedSystemMaterial;
 
@@ -22,24 +27,15 @@ namespace AnomalyChecker
 
         public List<Pipe> _relatedPipes = new List<Pipe>();
 
-        public string AnomalyType { get; set; }
-        public string Type { get; set; }
-
-
         public string mepSystemTypeName;
-        public string mepSystemName { get; set; }
 
         public long RelatedMEPElementID;
-
-        public bool HasIncorrectMaterial { get; set; }
-
-
 
 
 
         public PipeFitting(FamilyInstance pipeFittingFamInst) 
         {
-            this.Type = "Raccord de canalisation";
+            this.Type = "PipeFitting";
 
             _famInst = pipeFittingFamInst;
             ElementID = pipeFittingFamInst.Id.Value;
@@ -72,9 +68,14 @@ namespace AnomalyChecker
             string typeName = _famInst.Symbol.Name;
 
             _relatedSystemMaterial = spec.ReturnRelatedMaterial(mepSystemName);
-            HasIncorrectMaterial = (familyName.Contains(_relatedSystemMaterial) || typeName.Contains(_relatedSystemMaterial)) ? false : true;
-        }
 
+            if (_relatedSystemMaterial != null)
+            {
+                HasIncorrectMaterial = (familyName.Contains(_relatedSystemMaterial) || typeName.Contains(_relatedSystemMaterial)) ? false : true;
+            }
+
+            else { HasIncorrectMaterial = false; }
+        }
 
         private List<Pipe> ReturnRelatedPipes(FamilyInstance famIns)
         {
@@ -103,26 +104,59 @@ namespace AnomalyChecker
             {
                 foreach (Connector connectedConnector in connector.AllRefs)
                 {
-                    if (connectedConnector.Owner as Pipe == null) continue;
+                    if (connectedConnector.Owner as Pipe != null) 
+                    {
+                        PipeWrapper pipeWrapper = new PipeWrapper(connectedConnector.Owner as Pipe);
+                        relatedMEPElements.Add(pipeWrapper);
+                    }
 
-                    PipeWrapper pipeWrapper = new PipeWrapper(connectedConnector.Owner as Pipe);
+                    if (connectedConnector.Owner as FamilyInstance != null && (connectedConnector.Owner as FamilyInstance).Category?.Id.Value == (int)BuiltInCategory.OST_PipeAccessory)
+                    {
+                        PipeAccessory pipeAccessory = new PipeAccessory(connectedConnector.Owner as FamilyInstance);
+                        relatedMEPElements.Add(pipeAccessory);
+                    }
 
-                    relatedMEPElements.Add(pipeWrapper);
-                }
+                    if (connectedConnector.Owner as FamilyInstance != null && (connectedConnector.Owner as FamilyInstance).Category?.Id.Value == (int)BuiltInCategory.OST_PipeFitting)
+                    {
+                        PipeFitting pipeFitting = new PipeFitting(connectedConnector.Owner as FamilyInstance);
+                        relatedMEPElements.Add(pipeFitting);
+                    }
+                }            
             }
-
 
             PipelineMaterialSpecification materialSpecifications = MaterialSpecificationService.Instance.Specification;
 
-            foreach (IPipingElement pipe in relatedMEPElements)
+            foreach (IPipingElement pipingElement in relatedMEPElements)
             {
-                string systemName = pipe.mepSystemName;
+
+                string systemName = pipingElement.mepSystemName;
                 string systemDesignatedMaterial = materialSpecifications.ReturnRelatedMaterial(systemName);
 
-                pipe.UpdateRelatedMaterial(systemDesignatedMaterial);
+                pipingElement.UpdateRelatedMaterial(systemDesignatedMaterial);
             }
 
             return relatedMEPElements;
         }
+
+
+        public bool IsConnectedToAccessory()
+        {
+            var connectors = _famInst.MEPModel.ConnectorManager.Connectors;
+
+            foreach (Connector connector in connectors)
+            {
+                foreach (Connector connectedConnector in connector.AllRefs)
+                {
+                    FamilyInstance connectedElement = connectedConnector.Owner as FamilyInstance;
+
+                    if (connectedElement == null) continue;
+
+                    if (connectedElement.Category.Id.Value == (int)BuiltInCategory.OST_PipeAccessory) return true;
+                }
+            }
+
+            return false;
+        }
+
     }
 }

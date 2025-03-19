@@ -94,8 +94,9 @@ namespace AnomalyChecker
 
         private void UpdateDisplayedSystemNames(PipingSystemType selectedPipingSystemType) 
         {
-            string selectedPipingSystemTypeName = selectedPipingSystemType.SystemClassification.ToString();
-            this.PreSelectedSystemNames = _pipingSystems.Where(system => system.SystemClassificationName == selectedPipingSystemTypeName).ToList();
+            this.PreSelectedSystemNames = _pipingSystems.Where(system => system.pipingSystemType.Name == selectedPipingSystemType.Name).ToList();
+            //string selectedPipingSystemTypeName = selectedPipingSystemType.SystemClassification.ToString();
+            //this.PreSelectedSystemNames = _pipingSystems.Where(system => system.SystemClassificationName == selectedPipingSystemTypeName).ToList();
         }
 
         private void UpdateSelectedSystemItems(PipingSystemWrapper selectedSystem) 

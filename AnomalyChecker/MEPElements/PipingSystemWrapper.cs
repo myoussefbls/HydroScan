@@ -47,6 +47,8 @@ namespace AnomalyChecker.MEPElements
             }     
         }
 
+        public PipingSystemType pipingSystemType;
+
         public event PropertyChangedEventHandler PropertyChanged;
         public PipingSystemWrapper(PipingSystem pipingSystem) 
         {
@@ -56,7 +58,7 @@ namespace AnomalyChecker.MEPElements
             PipelineMaterialSpecification materialSpecifications = MaterialSpecificationService.Instance.Specification;
             this._designatedMaterial = materialSpecifications.ReturnRelatedMaterial(pipingSystem.Name);
 
-            PipingSystemType pipingSystemType = pipingSystem.Document.GetElement(pipingSystem.GetTypeId()) as PipingSystemType;
+            pipingSystemType = pipingSystem.Document.GetElement(pipingSystem.GetTypeId()) as PipingSystemType;
         }
 
         private List<IPipingElement> FindSystemElements()
@@ -64,16 +66,23 @@ namespace AnomalyChecker.MEPElements
             List<IPipingElement> output = new List<IPipingElement>();
 
             List<Element> selectedSystemElements = new FilteredElementCollector(_mepSystem.Document)
-            .WhereElementIsNotElementType().Where(e => e is Pipe || e is FamilyInstance) // Filtre les canalisations et raccords
+            .WhereElementIsNotElementType()
+            .Where(e => e is Pipe ||
+                  (e is FamilyInstance famInst && famInst.Category.Id.Value == (int)BuiltInCategory.OST_PipeFitting)) // Filtre uniquement les raccords de canalisations
             .Where(e => e.get_Parameter(BuiltInParameter.RBS_SYSTEM_NAME_PARAM)?.AsString() == _mepSystem.Name) // Associer au système
             .ToList();
+
 
             foreach (Element element in selectedSystemElements)
             {
                 IPipingElement pipingElement = null;
 
                 if (element is Pipe) pipingElement = new PipeWrapper(element as Pipe);
-                else if (element is FamilyInstance) pipingElement = new PipeFitting(element as FamilyInstance);
+                else if (element is FamilyInstance)
+                {
+                    if ((element as FamilyInstance).Category?.Id.Value != (int)BuiltInCategory.OST_PipeFitting) continue;
+                    pipingElement = new PipeFitting(element as FamilyInstance);
+                }
 
                 pipingElement.UpdateRelatedMaterial(_designatedMaterial);
                 output.Add(pipingElement);
@@ -81,7 +90,6 @@ namespace AnomalyChecker.MEPElements
 
             return output;
         }
-
         public void AnalyzeAnomalies() 
         {
             this.Elements = FindSystemElements();
@@ -98,7 +106,6 @@ namespace AnomalyChecker.MEPElements
                           elementsAnomalies.Contains("Anomalie potentielle") ? "Anomalie potentielle" :
                           "RAS";
         }
-
         private List<AnomalousPipeLineSegment> FindAnomalousPipeSegments()
         {
             List<AnomalousPipeLineSegment> anomalousPipeLineSegments = new List<AnomalousPipeLineSegment>();
@@ -112,10 +119,8 @@ namespace AnomalyChecker.MEPElements
 
                 anomalousPipeLineSegments.Add(new AnomalousPipeLineSegment(pipingElement));
             }
-
             return anomalousPipeLineSegments;
         }
-
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
