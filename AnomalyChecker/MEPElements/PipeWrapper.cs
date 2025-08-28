@@ -9,18 +9,30 @@ using AnomalyChecker.MEPElements;
 using AnomalyChecker.Services;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
+using Autodesk.Revit.UI;
+using ClashMarkerAddIn.External_Events_Handlers;
 
 namespace AnomalyChecker
 {
     public class PipeWrapper : IPipingElement
     {
         public string AnomalyType { get; set; }
+
+        public string UserComment { get; set; }
+
+        private bool _isAnomalyVerified;
+        public bool IsAnomalyVerified 
+        {
+            get  { return _isAnomalyVerified; }
+            set  { _isAnomalyVerified = value;}        
+        }
         public string Type { get; set; }
+        public string Type_French { get; set; }
         public long ElementID { get; set; }
 
         private Pipe _relatedPipe;
 
-        private string _relatedSystemMaterial;
+        public string RelatedSystemMaterial { get; set; }
 
         MEPSystemType _MEPSystemType;
         public string mepSystemName { get; set; }
@@ -29,20 +41,35 @@ namespace AnomalyChecker
         public PipeWrapper(Pipe relatedPipe) 
         {
             this.Type = "Pipe";
+            this.Type_French = "Canalisation";
 
             _relatedPipe = relatedPipe;
+
             ElementID = relatedPipe.Id.Value;
 
             this._MEPSystemType = relatedPipe.Document.GetElement(relatedPipe.MEPSystem.GetTypeId()) as MEPSystemType;
             this.mepSystemName = relatedPipe.MEPSystem.Name;
 
             PipeType pipeType = relatedPipe.Document.GetElement(relatedPipe.GetTypeId()) as PipeType;
+
+            Parameter statusParameter = relatedPipe.LookupParameter("BAL_HYDRSC_Statut");
+            if (statusParameter != null && statusParameter.StorageType == StorageType.Integer)
+            {
+                _isAnomalyVerified = (statusParameter.AsInteger() == 1) ? true : false;
+            }
+
+            Parameter commentParameter = relatedPipe.LookupParameter("BAL_HYDRSC_Commentaire");
+            if (commentParameter != null && commentParameter.StorageType == StorageType.String) 
+            {
+                UserComment = commentParameter.AsString();
+            }
         }
+
 
         public void UpdateRelatedMaterial(string materialName) 
         {
-            _relatedSystemMaterial = materialName;
-            HasIncorrectMaterial = this._relatedPipe.Name.Contains(_relatedSystemMaterial) ? false : true;
+            RelatedSystemMaterial = materialName;
+            HasIncorrectMaterial = this._relatedPipe.Name.Contains(RelatedSystemMaterial) ? false : true;
         }
 
         public Pipe ReturnRelatedPipe() 
@@ -101,6 +128,14 @@ namespace AnomalyChecker
             return false;
         }
 
+        void IPipingElement.UpdateElementAnomalyParameters()
+        {
+            Parameter isCheckedParam = this._relatedPipe.LookupParameter("BAL_HYDRSC_Statut");
+            if (_isAnomalyVerified) isCheckedParam.Set(1);
+            else { isCheckedParam.Set(0); }
 
+            Parameter commentParam = this._relatedPipe.LookupParameter("BAL_HYDRSC_Commentaire");
+            commentParam.Set(UserComment);
+        }
     }
 }

@@ -7,14 +7,38 @@ using AnomalyChecker.Materials;
 using AnomalyChecker.MEPElements;
 using AnomalyChecker.Services;
 using AnomalyChecker.UI;
+using AnomalyChecker.User;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
 using Autodesk.Revit.UI;
+using ClashMarkerAddIn.Commands;
 
 namespace AnomalyChecker
 {
     public class ViewModel : INotifyPropertyChanged
     {
+        private bool _isUserAuthentified;
+
+        public bool IsUserAuthentified 
+        {
+            get { return _isUserAuthentified; }
+            set 
+            {
+                _isUserAuthentified = value;
+
+                if (value == false)
+                {
+                    LaunchWindowMessage = "Utilisateur non reconnu";
+                }
+            }  
+        }
+
+        public string LaunchWindowMessage { get; set; }
+
+        public TransactionCommand UpdatePipingElementsPropertiesCommand { get; private set; }
+
+        private UIDocument _uiDoc;
+
         Autodesk.Revit.DB.Document _currentDocument;
 
         private RevitDataService _revitData;
@@ -89,8 +113,18 @@ namespace AnomalyChecker
         private MaterialSpecificationService _specService;
         public TransactionlessCommand SelectXMLFileCommand { get; private set; }
         public TransactionlessCommand LaunchMainWindowCommand { get; private set; }
+        public IPipingElement SelectedComponent 
+        {
+            set  { SelectElement(value); }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void SelectElement(IPipingElement pipingElement) 
+        {
+            ElementId id = new ElementId(pipingElement.ElementID);
+            _uiDoc.Selection.SetElementIds(new List<ElementId> { id });
+        }
 
         private void UpdateDisplayedSystemNames(PipingSystemType selectedPipingSystemType) 
         {
@@ -146,8 +180,26 @@ namespace AnomalyChecker
             if (_specService.Specification.HasBeenUpdated) UIMessage.SignalSpecificationUpdate();
         }
 
+        private Result UpdatePipingElementsProperties(object parameter) 
+        {
+            foreach (IPipingElement element in SelectedSystemElements)
+            {
+                element.UpdateElementAnomalyParameters();
+            }
+
+            return Result.Succeeded;    
+        }
+
         public ViewModel(ExternalCommandData comData) 
         {
+
+            AutodeskUser user = new AutodeskUser(comData.Application.Application.Username);
+            IsUserAuthentified = user.IsAuthentified();
+
+
+            UpdatePipingElementsPropertiesCommand = new TransactionCommand(UpdatePipingElementsProperties, "Actualisation des proprietés");
+
+            this._uiDoc = comData.Application.ActiveUIDocument;
             this._currentDocument = comData.Application.ActiveUIDocument.Document;
             this._revitData = new RevitDataService(_currentDocument);
             this.PipingSystemTypes = _revitData.ReturnPipingSystemsTypes();
@@ -159,6 +211,7 @@ namespace AnomalyChecker
             LaunchMainWindowCommand = new TransactionlessCommand(AnalyzePipingMaterials);
 
             this._windowService.ShowLaunchWindow();
+
         }
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

@@ -24,6 +24,10 @@ namespace AnomalyChecker.Services
 
         public void ShowLaunchWindow() 
         {
+
+            var ff = _viewModel;
+            var fddf = true;
+
             _launchWindow = new LaunchWindow() { DataContext = _viewModel };
             _launchWindow.Show();
         }

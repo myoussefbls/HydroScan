@@ -16,12 +16,22 @@ namespace AnomalyChecker
     {
         public long ElementID { get; set;}
 
+        public string UserComment { get; set; }
+
         public bool HasIncorrectMaterial { get; set; }
         public string AnomalyType { get; set; }
+
+        private bool _isAnomalyVerified;
+        public bool IsAnomalyVerified
+        {
+            get { return _isAnomalyVerified; }
+            set { _isAnomalyVerified = value; }
+        }
         public string Type { get; set; }
+        public string Type_French { get; set; }
         public string mepSystemName { get; set; }
 
-        private string _relatedSystemMaterial;
+        public string RelatedSystemMaterial { get; set; }
 
         private FamilyInstance _famInst;
 
@@ -36,6 +46,7 @@ namespace AnomalyChecker
         public PipeFitting(FamilyInstance pipeFittingFamInst) 
         {
             this.Type = "PipeFitting";
+            this.Type_French = "Raccord de canalisation";
 
             _famInst = pipeFittingFamInst;
             ElementID = pipeFittingFamInst.Id.Value;
@@ -58,7 +69,7 @@ namespace AnomalyChecker
             string familyName = _famInst.Symbol.Family.Name;
             string typeName = _famInst.Symbol.Name;
 
-            _relatedSystemMaterial = materialName;
+            RelatedSystemMaterial = materialName;
             HasIncorrectMaterial = (familyName.Contains(materialName) || typeName.Contains(materialName)) ? false : true;
         }
 
@@ -67,11 +78,11 @@ namespace AnomalyChecker
             string familyName = _famInst.Symbol.Family.Name;
             string typeName = _famInst.Symbol.Name;
 
-            _relatedSystemMaterial = spec.ReturnRelatedMaterial(mepSystemName);
+            RelatedSystemMaterial = spec.ReturnRelatedMaterial(mepSystemName);
 
-            if (_relatedSystemMaterial != null)
+            if (RelatedSystemMaterial != null)
             {
-                HasIncorrectMaterial = (familyName.Contains(_relatedSystemMaterial) || typeName.Contains(_relatedSystemMaterial)) ? false : true;
+                HasIncorrectMaterial = (familyName.Contains(RelatedSystemMaterial) || typeName.Contains(RelatedSystemMaterial)) ? false : true;
             }
 
             else { HasIncorrectMaterial = false; }
@@ -154,9 +165,17 @@ namespace AnomalyChecker
                     if (connectedElement.Category.Id.Value == (int)BuiltInCategory.OST_PipeAccessory) return true;
                 }
             }
-
             return false;
         }
 
+        public void UpdateElementAnomalyParameters()
+        {
+            Parameter isCheckedParam = this._famInst.LookupParameter("BAL_HYDRSC_Statut");
+            if (_isAnomalyVerified) isCheckedParam.Set(1);
+            else {isCheckedParam.Set(0);}
+
+            Parameter commentParam = this._famInst.LookupParameter("BAL_HYDRSC_Commentaire");
+            commentParam.Set(UserComment);
+        }
     }
 }

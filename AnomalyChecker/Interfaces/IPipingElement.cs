@@ -13,6 +13,10 @@ namespace AnomalyChecker
 
         string AnomalyType { get; set; }
 
+        bool IsAnomalyVerified { get; set; }
+
+        string UserComment { get; set; }
+
         string Type { get; set; }
 
         string mepSystemName {  get; set; }
@@ -20,5 +24,7 @@ namespace AnomalyChecker
         List<IPipingElement> ReturnConnectedElements();
 
         void UpdateRelatedMaterial(string materialName);
+
+        void UpdateElementAnomalyParameters();
     }
 }

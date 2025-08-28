@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:AnomalyChecker.UI"
         mc:Ignorable="d" 
         
-        Title="MainWindow" 
+        Title="HydroScan" 
         ResizeMode="NoResize"
-        Height="500" 
-        Width="700">
+        Height="600" 
+        Width="850">
 
 
     <Canvas>
@@ -17,9 +17,9 @@
           Height="22"
           Canvas.Left="41"
           Canvas.Top="213"
-          Width="618"
-          HorizontalAlignment="Center"
-          VerticalAlignment="Top"
+          Width="759"
+          HorizontalAlignment="Left"
+          VerticalAlignment="Center"
           ItemsSource="{Binding PipingSystemTypes}"
           DisplayMemberPath="Name"
           SelectedItem="{Binding SelectedPipingSystemType, Mode=TwoWay}"
@@ -53,11 +53,11 @@
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding AnomalyType}" Value="Anomalie certaine">
-                                <Setter Property="Background" Value="#ffeeee"/>
+                                <Setter Property="Background" Value="#ffa3a3"/>
                                 <Setter Property="Foreground" Value="Black"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding AnomalyType}" Value="Anomalie potentielle">
-                                <Setter Property="Background" Value="#f8fed7"/>
+                                <Setter Property="Background" Value="#ffff78"/>
                                 <Setter Property="Foreground" Value="Black"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -73,10 +73,10 @@
         <ScrollViewer x:Name="mainScrollViewer2" 
                       VerticalScrollBarVisibility="Auto" 
                       Background="White" 
-                      HorizontalAlignment="Center" 
+                      HorizontalAlignment="Left" 
                       Canvas.Left="309" 
                       Canvas.Top="306" 
-                      VerticalAlignment="Top" Width="350">
+                      VerticalAlignment="Center" Width="491">
             <DataGrid ItemsSource="{Binding SelectedSystemElements}" 
                       AutoGenerateColumns="False" 
                       Background="White"
@@ -85,20 +85,20 @@
                       BorderThickness="0"
                       HeadersVisibility="Column"
                       Height="145" 
-                      Width="350"
+                      Width="491"
                       SelectionMode="Single"
-                      SelectedItem="{Binding SelectedSystem, Mode=TwoWay}">
+                      SelectedItem="{Binding SelectedComponent, Mode=TwoWay}">
 
                 <!-- Appliquer la couleur sur toute la ligne -->
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding AnomalyType}" Value="Anomalie certaine">
-                                <Setter Property="Background" Value="#ffeeee"/>
+                                <Setter Property="Background" Value="#ffa3a3"/>
                                 <Setter Property="Foreground" Value="Black"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding AnomalyType}" Value="Anomalie potentielle">
-                                <Setter Property="Background" Value="#f8fed7"/>
+                                <Setter Property="Background" Value="#ffff78"/>
                                 <Setter Property="Foreground" Value="Black"/>
                             </DataTrigger>
                         </Style.Triggers>
@@ -106,9 +106,33 @@
                 </DataGrid.RowStyle>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*"/>
                     <DataGridTextColumn Header="Id" Binding="{Binding ElementID}" Width="*"/>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Type_French}" Width="*"/>
+                    <DataGridTextColumn Header="Materiau système" Binding="{Binding RelatedSystemMaterial}" Width="*"/>
                     <DataGridTextColumn Header="Statut" Binding="{Binding AnomalyType}" Width="*"/>
+                    <DataGridTemplateColumn Header="Vérifiée" Width="*" IsReadOnly="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsAnomalyVerified, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <CheckBox.Style>
+                                        <Style TargetType="CheckBox">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding AnomalyType}" Value="Anomalie potentielle">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </CheckBox.Style>
+                                </CheckBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Commentaire" Binding="{Binding UserComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+
+
+
+
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
@@ -121,12 +145,26 @@
 
 
 
-        <Image Height="70" Canvas.Left="192" Source="/AnomalyChecker;component/UI Ressources/logo-groupe-balas.jpg" Stretch="Fill" Canvas.Top="29" Width="72" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <TextBox Canvas.Left="286" TextWrapping="Wrap" Text="HydroScan" Canvas.Top="29" Width="208" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="White" Foreground="#FF1B4687" FontFamily="Lucida Sans"/>
-        <TextBox Canvas.Left="246" TextWrapping="Wrap" Text="Types de systèmes" Canvas.Top="173" Width="208" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="White" FontSize="15" Foreground="#FF315B9A" FontFamily="Segoe UI Semibold"/>
+        <Image Height="70" Canvas.Left="270" Source="/AnomalyChecker;component/UI Ressources/logo-groupe-balas.jpg" Stretch="Fill" Canvas.Top="29" Width="72" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox Canvas.Left="364" TextWrapping="Wrap" Text="HydroScan" Canvas.Top="29" Width="208" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center" BorderBrush="White" Foreground="#FF1B4687" FontFamily="Lucida Sans"/>
+        <TextBox Canvas.Left="321" TextWrapping="Wrap" Text="Types de systèmes" Canvas.Top="173" Width="208" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" BorderBrush="White" FontSize="15" Foreground="#FF315B9A" FontFamily="Segoe UI Semibold"/>
         <TextBox Canvas.Left="54" TextWrapping="Wrap" Text="Noms des systèmes" Canvas.Top="268" Width="208" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="White" FontSize="15" Foreground="#FF315B9A" FontFamily="Segoe UI Semibold"/>
-        <TextBox Canvas.Left="330" TextWrapping="Wrap" Text="Composants de systèmes" Canvas.Top="268" Width="208" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="White" FontSize="15" Foreground="#FF315B9A" FontFamily="Segoe UI Semibold"/>
-        <TextBox Canvas.Left="286" TextWrapping="Wrap" Text="Contrôle des anomalies de canalisations" Canvas.Top="64" Width="294" BorderBrush="White" Foreground="#FF1B4687" FontFamily="Lucida Sans" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <TextBox Canvas.Left="286" TextWrapping="Wrap" Text="Version Beta" Canvas.Top="84" Width="294" BorderBrush="White" Foreground="#FF44628E" FontFamily="Lucida Sans" HorizontalAlignment="Center" VerticalAlignment="Top" FontStyle="Italic"/>
+        <TextBox Canvas.Left="450" TextWrapping="Wrap" Text="Composants de systèmes" Canvas.Top="268" Width="208" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Center" BorderBrush="White" FontSize="15" Foreground="#FF315B9A" FontFamily="Segoe UI Semibold"/>
+        <TextBox Canvas.Left="364" TextWrapping="Wrap" Text="Contrôle des anomalies de canalisations" Canvas.Top="64" Width="294" BorderBrush="White" Foreground="#FF1B4687" FontFamily="Lucida Sans" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox Canvas.Left="364" TextWrapping="Wrap" Text="Version Beta" Canvas.Top="84" Width="294" BorderBrush="White" Foreground="#FF44628E" FontFamily="Lucida Sans" HorizontalAlignment="Left" VerticalAlignment="Center" FontStyle="Italic"/>
+        <Button Content="Enregistrer les parametres" Background="#FFF9FBFF" Height="28" Canvas.Left="476" Canvas.Top="515" Width="156" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding UpdatePipingElementsPropertiesCommand}"/>
+        <Border BorderBrush="#FFFFFF70" BorderThickness="1" Height="15" Canvas.Left="553" Canvas.Top="463" Width="13" Background="#FFFFFF78" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Border BorderBrush="#FFFFA3A3" BorderThickness="1" Height="15" Canvas.Left="694" Canvas.Top="463" Width="16" Background="#FFFFA3A3" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBox Height="17" Canvas.Left="571" TextWrapping="Wrap" Text="Anomalie potentielle" Canvas.Top="462" Width="98" HorizontalAlignment="Center" VerticalAlignment="Top" TextChanged="TextBox_TextChanged" BorderBrush="White" FontSize="10" FontStyle="Italic"/>
+        <TextBox Height="20" Canvas.Left="714" TextWrapping="Wrap" Text="Anomalie certaine" Canvas.Top="462" Width="86" TextChanged="TextBox_TextChanged" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" BorderBrush="White" FontSize="10" FontStyle="Italic">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="1.206"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.179"/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
     </Canvas>
 </Window>

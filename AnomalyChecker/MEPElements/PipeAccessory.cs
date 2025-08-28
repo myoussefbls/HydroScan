@@ -12,9 +12,12 @@ namespace AnomalyChecker.MEPElements
 {
     public class PipeAccessory : IPipingElement
     {
+        public string UserComment { get; set; }
         public long ElementID {get; set;}
         public bool HasIncorrectMaterial { get; set; }
         public string AnomalyType { get; set; }
+
+        public bool IsAnomalyVerified { get; set; }
         public string Type { get; set; }
         public string mepSystemName { get; set; }
 
@@ -32,6 +35,7 @@ namespace AnomalyChecker.MEPElements
         public PipeAccessory(FamilyInstance pipeAccessoryFamInst) 
         {
             this.Type = "Accessoire de canalisation";
+
 
             _famInst = pipeAccessoryFamInst;
             ElementID = pipeAccessoryFamInst.Id.Value;
@@ -117,6 +121,11 @@ namespace AnomalyChecker.MEPElements
             }
 
             else { HasIncorrectMaterial = false; }
+        }
+
+        public void UpdateElementAnomalyParameters()
+        {
+            throw new NotImplementedException();
         }
     }
 }
